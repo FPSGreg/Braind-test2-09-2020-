@@ -17,8 +17,8 @@ if($FatalErrors < 0){
     
 };
 
-if($Warnings >= 1000){
-    echo "Число ворнингов не может быть больше 999";
+if( $Warnings < 0 || $Warnings >= 1000){
+    echo "Число ворнингов не может быть больше 999 и меньше нуля";
     exit;
 }else{
     
@@ -26,31 +26,54 @@ if($Warnings >= 1000){
 
 $i = 0;
 
-if($Warnings%2 !== 0) {
+
+if($Warnings%2 !== 0 && $Warnings !== 0) {
 
     $Warnings+=1;
     $i++;
     
 };
 
-if ((($Warnings / 2) + $FatalErrors)%2 !== 0){
+if ($Warnings != 0) {
+    if ((($Warnings / 2) + $FatalErrors)%2 !== 0){
 
-    $Warnings +=2;
-    $i +=2;
-
+        $Warnings +=2;
+        $i +=2;
+    
+    };
 };
 
+
+
 while ($Warnings > 0) {
+
+            if ($Warnings == 0 && $FatalErrors == 1) {
+                $i = -1;
+                echo($i);
+                exit;
+            };
 
             $Warnings -= 2;
             $FatalErrors += 1;
             $i++;
+
+
 };
 
-
 while ($FatalErrors > 0) {
+
+
+
+            if ($Warnings == 0 && $FatalErrors == 1) {
+                $i = -1;
+                echo($i);
+                exit;
+            };
+
+
             $FatalErrors -= 2;
             $i++;
+
 };
 
     echo $i;
